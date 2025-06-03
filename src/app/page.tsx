@@ -1,10 +1,8 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
-import { db } from "@/lib/dbConnect";
-import Image from "next/image";
+
 
 export default async function Home() {
-  await db.set('hello','hello')
   return (
     <div>
       <MaxWidthWrapper>

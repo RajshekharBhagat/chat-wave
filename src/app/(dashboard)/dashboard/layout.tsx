@@ -13,7 +13,6 @@ import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import { getFriendsByUserId } from "../../../../helper/getFriendsByUserId";
 import { fetchRedis } from "../../../../helper/redis";
-import CreateRoomButton from "@/components/CreateRoomButton";
 
 interface LayoutProps {
   children: ReactNode;
@@ -51,7 +50,7 @@ const Layout = async ({ children }: LayoutProps) => {
   return (
     <MaxWidthWrapper>
       <div className="w-full h-[calc(100vh-20px)] flex">
-        <div className="hidden md:flex border-r-2 px-2 border-orange-100 h-full w-full max-w-72 grow flex-col gap-y-5 overflow-y-auto bg-neutral-50">
+        <div className="hidden md:flex border-r-2 px-2 py-2 border-orange-100 h-full w-full max-w-72 grow flex-col gap-y-5 overflow-y-auto bg-neutral-50">
           <Link
             href={"/dashboard"}
             className="text-xl text-left md:text-center md:text-2xl lg:text-3xl font-bold"
@@ -136,13 +135,7 @@ const Layout = async ({ children }: LayoutProps) => {
             </ul>
           </nav>
         </div>
-        <aside className="relative max-h-screen max-w-screen-2xl w-full">
-          <MobileLayout
-            session={session}
-            friends={friends}
-            unseenRequestCount={unseenRequestCount}
-            sidebarOptions={sidebarOptions}
-          />
+        <aside className="relative h-full min-h-screen max-w-screen-2xl w-full">
           {children}
         </aside>
       </div>

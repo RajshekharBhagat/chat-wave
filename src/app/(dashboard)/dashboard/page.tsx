@@ -8,6 +8,7 @@ import { chatHrefConstructor } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import MobileLayout from "@/components/MobileLayout";
 
 const Page = async () => {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,12 @@ const Page = async () => {
   }
 
   const friends = await getFriendsByUserId(session.user.id);
+  const unseenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_friend_requests`
+    )) as User[]
+  ).length;
   const friendsLastMessage = await Promise.all(
     friends.map(async (friend) => {
       const lastMessageRawArray = (await fetchRedis(
@@ -36,10 +43,14 @@ const Page = async () => {
   );
 
   return (
-    <div className="px-2 md:px-4">
-      <h1 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8">
+    <div className="px-2 md:px-4 py-2">
+      <div className="flex items-center gap-2">
+        <MobileLayout friends={friends} unseenRequestCount={unseenRequestCount} session={session}  />
+<h1 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl py-4">
         Recent Chats
       </h1>
+      </div>
+      
       {friendsLastMessage && friendsLastMessage.length === 0 ? (
         <p>Nothing to show</p>
       ) : (

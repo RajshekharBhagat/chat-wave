@@ -41,7 +41,7 @@ const Messages = ({
   return (
     <div
       id="messages"
-      className="flex h-full w-full flex-1 flex-col-reverse gap-1 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+      className="flex h-full w-full flex-1 flex-col-reverse gap-2 md:p-2 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
     >
       <div ref={scrollDownRef} />
       {messages.map((message, index) => {
@@ -51,7 +51,7 @@ const Messages = ({
           messages[index - 1].senderId === messages[index].senderId;
         return (
           <div
-            className="chat-message"
+            className="chat-Message"
             key={`${message.id}-${message.timeStamp}`}
           >
             <div
@@ -88,7 +88,7 @@ const Messages = ({
                 </span>
               </div>
               <div
-                className={cn("relative w-6 h-6", {
+                className={cn("relative w-6 h-6 shrink-0", {
                   "order-2": isCurrentUser,
                   "order-1": !isCurrentUser,
                   invisible: hasNextMessageFromSameUser,
@@ -101,7 +101,7 @@ const Messages = ({
                   }
                   alt="profile picture"
                   referrerPolicy="no-referrer"
-                  className="rounded-full"
+                  className="rounded-full shrink-0"
                 />
               </div>
             </div>
